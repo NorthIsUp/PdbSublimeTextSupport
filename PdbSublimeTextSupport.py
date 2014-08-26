@@ -3,11 +3,14 @@ import os.path
 
 from os.path import exists
 
+COMMAND = 'subl'
+COMMAND_ARGS = ' -b "%s:%d"'
+
 def launch(self):
     frame, lineno = self.stack[self.curindex]
     filename = self.canonic(frame.f_code.co_filename)
     if exists(filename):
-        command = 'subl -b "%s:%d"' % (filename, lineno)
+        command = (COMMAND + COMMAND_ARGS) % (filename, lineno)
         os.system(command)
 
 def preloop(self):
